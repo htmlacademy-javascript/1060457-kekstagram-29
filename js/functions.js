@@ -2,7 +2,7 @@
 
 const checkLength = (word, length) => word.length <= length;
 
-// console.log(checkLength('дерево', 4));
+(checkLength('дерево', 4));
 
 
 // Функция для проверки, является ли строка палиндромом.
@@ -17,5 +17,5 @@ const checkPalindrom = (word) => {
   return true;
 };
 
-// console.log(checkPalindrom('Сел в озере березов лес'));
+(checkPalindrom('Сел в озере березов лес'));
 
