@@ -1,3 +1,8 @@
+const POSTS_COUNT = 25;
+const AVATAR_COUNT = 6;
+const POSTS_ID_COUNT = 25;
+const COMMENTS_ID_COUNT = 500;
+
 const MESSAGE = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -33,15 +38,15 @@ const getOrigId = (min, max, cache = []) => () => {
   return id;
 };
 
-const ganeratePhoto = getOrigId(1, 25);
-const ganerateIdPhoto = getOrigId(1, 25);
-const ganerateIdComment = getOrigId(1, 500);
+const ganeratePhoto = getOrigId(1, POSTS_COUNT);
+const ganerateIdPhoto = getOrigId(1, POSTS_ID_COUNT);
+const ganerateIdComment = getOrigId(1, COMMENTS_ID_COUNT);
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 const createComment = () => ({
   id: ganerateIdComment(),
-  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+  avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
   message: `${getRandomArrayElement(MESSAGE)}`,
   name: `${getRandomArrayElement(NAMES)}`
 });
@@ -57,7 +62,7 @@ const pushPhoto = () => ({
 
 // const similarPhotos = Array.from({ length: 25 }, pushPhoto);
 const similarPhotos = () => {
-  const arrayPhotos = Array.from({ length: 25 }, pushPhoto);
+  const arrayPhotos = Array.from({ length: POSTS_COUNT }, pushPhoto);
   return arrayPhotos;
 };
 
