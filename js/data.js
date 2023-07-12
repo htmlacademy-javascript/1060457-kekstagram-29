@@ -49,8 +49,8 @@ const pushPhoto = () => ({
 });
 
 
-const similarPhotos = () => {
-  const arrayPhotos = Array.from({ length: POSTS_COUNT }, pushPhoto);
+const similarPhotos = (count) => {
+  const arrayPhotos = Array.from({ length: count }, pushPhoto);
   return arrayPhotos;
 };
 
