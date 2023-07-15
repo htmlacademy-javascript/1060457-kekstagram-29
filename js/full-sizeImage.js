@@ -30,7 +30,7 @@ const fillBigPicture = (data) => {
   bigPhotoPreview.querySelector('.social__caption').textContent = data.description;
 
   commentsBox.innerHTML = '';
-  renderComments(data.comments);
+  // renderComments(data.comments);
   bigPhotoPreview.querySelector('.social__comment-count').classList.add('hidden');
   bigPhotoPreview.querySelector('.comments-loader').classList.add('hidden');
 };
@@ -45,11 +45,12 @@ const onDocumentKeydown = (event) => {
 const openPic = (data) => {
   bigPicCloseBtn.addEventListener('click', (evt) => {
     evt.preventDefault();
-    bigPic.classList.remove('hidden');
+    bigPic.classList.add('hidden');
   });
   document.addEventListener('keydown', onDocumentKeydown);
 
   fillBigPicture(data);
+  bigPic.classList.remove('hidden');
 };
 
 //закрываем большую фотку

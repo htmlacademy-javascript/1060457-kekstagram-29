@@ -2,7 +2,7 @@ import { similarPhotos } from './data.js';
 import { getRandomInteger } from './util.js';
 import { openPic } from './full-sizeImage.js';
 
-const setPicture = similarPhotos(6);
+
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
 
@@ -22,8 +22,8 @@ const createPic = (pic) => {
   return pictureElement;
 };
 
-const renderMiniPic = () => {
-  setPicture.forEach((pic) => container.append(createPic(pic)));
+const renderMiniPic = (pictures) => {
+  pictures.forEach((pic) => container.append(createPic(pic)));
 };
 
 export {renderMiniPic};

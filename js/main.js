@@ -1,8 +1,8 @@
 import './full-sizeImage.js';
 import {similarPhotos} from './data.js';
 
-similarPhotos();
+const pictures = similarPhotos(6);
 
 import {renderMiniPic} from './creatingMiniatures.js';
 
-renderMiniPic();
+renderMiniPic(pictures);

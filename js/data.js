@@ -46,6 +46,7 @@ const pushPhoto = () => ({
   likes: getRandomInteger(15, LIKES_COUNT),
 
   comments: createComment()
+  //функция которая генерит массив комментариев
 });
 
 
