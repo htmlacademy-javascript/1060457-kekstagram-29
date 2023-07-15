@@ -6,3 +6,4 @@ const pictures = similarPhotos(6);
 import {renderMiniPic} from './creatingMiniatures.js';
 
 renderMiniPic(pictures);
+
