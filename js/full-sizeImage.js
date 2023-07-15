@@ -53,7 +53,7 @@ function onDocumentKeydown (evt) {
     evt.preventDefault();
     closePic();
   }
-};
+}
 
 bigPicCloseBtn.addEventListener('click', closePic);
 
