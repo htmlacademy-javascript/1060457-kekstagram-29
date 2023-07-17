@@ -1,24 +1,27 @@
-import { similarPhotos } from './data.js';
-import {getRandomInteger} from './util.js';
+import { openPic } from './full-sizeImage.js';
 
-const container = document.querySelector('.pictures');
-const pictureTemplate = document.querySelector('#picture')
-  .content
-  .querySelector('.picture');
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+export const container = document.querySelector('.pictures');
 
-const setPicture = similarPhotos(6);
-
-const setFragment = document.createDocumentFragment();
-
-setPicture.forEach(({url, description, likes}) => {
+const createPic = (pic) => {
   const pictureElement = pictureTemplate.cloneNode(true);
 
-  pictureElement.querySelector('.picture__img').src = url;
-  pictureElement.querySelector('.picture__img').alt = description;
-  pictureElement.querySelector('.picture__likes').textContent = likes;
-  pictureElement.querySelector('.picture__comments').textContent = getRandomInteger(1, 100);
+  pictureElement.querySelector('.picture__img').src = pic.url;
+  pictureElement.querySelector('.picture__img').alt = pic.description;
+  pictureElement.querySelector('.picture__likes').textContent = pic.likes;
+  pictureElement.querySelector('.picture__comments').textContent = pic.comments.length;
+  // pictureElement.dataset.id = pic.id;
 
-  setFragment.append(pictureElement);
-});
+  pictureElement.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    openPic(pic);
+  });
 
-container.appendChild(setFragment);
+  return pictureElement;
+};
+
+const renderMiniPic = (pictures) => {
+  pictures.forEach((pic) => container.append(createPic(pic)));
+};
+
+export { renderMiniPic };

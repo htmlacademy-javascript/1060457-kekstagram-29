@@ -39,15 +39,19 @@ const createComment = () => ({
   name: `${getRandomArrayElement(NAMES)}`
 });
 
+const similarComments = () => {
+  const arrayComments = Array.from({length: getRandomInteger(1, 30)}, createComment);
+  return arrayComments;
+};
+
 const pushPhoto = () => ({
   id: generateIdPhoto(),
   url: `photos/${generatePhoto()}.jpg`,
   description: 'New photo!',
   likes: getRandomInteger(15, LIKES_COUNT),
 
-  comments: createComment()
+  comments: similarComments()
 });
-
 
 const similarPhotos = (count) => {
   const arrayPhotos = Array.from({ length: count }, pushPhoto);
