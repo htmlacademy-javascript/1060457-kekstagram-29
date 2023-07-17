@@ -1,13 +1,18 @@
+const COMMENTS_PER_PORTION = 5;
+
 const bigPicCloseBtn = document.querySelector('.big-picture__cancel');
 const bigPic = document.querySelector('.big-picture');
 const bigPhotoPreview = document.querySelector('.big-picture__preview');
-const commentsBox = bigPhotoPreview.querySelector('.social__comments');
-// const commentLoaderElem = commentsBox.querySelector('.comment__loader');
-// const commentCounter = document.querySelector('.social__comment-count');
+const commentsBox = document.querySelector('.social__comments');
+const loadMoreBtn = document.querySelector('.comment__loader');
+const commentShown = document.querySelector('.social__comment-count');
 const commentTemplate = document.querySelector('.social__comment');
+const commentCounter = document.querySelector('.comment-count');
+
+let commentsShown = 0;
+let comments = [];
 
 const createComment = (data) => {
-  commentsBox.innerHTML = '';
   const comment = commentTemplate.cloneNode(true);
 
   comment.querySelector('.social__picture').src = data.avatar;
@@ -17,8 +22,24 @@ const createComment = (data) => {
   return comment;
 };
 
-const renderComments = (comments) => {
-  comments.forEach((data) => commentsBox.append(createComment(data)));
+const renderComments = () => {
+  commentsShown += COMMENTS_PER_PORTION;
+
+  if (commentsShown <= comments.length) {
+    loadMoreBtn.classList.remove('hidden');
+    commentsShown = comments.length;
+  }
+
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < commentsShown; i++) {
+    const comment = createComment(comments[i]);
+    fragment.append(comment);
+  }
+
+  commentsBox.innerHTML = '';
+  commentsBox.append(fragment);
+  commentShown.textContent = commentsShown;
+  commentCounter.textContent = comments.length;
 };
 
 const fillBigPicture = (data) => {
@@ -32,20 +53,22 @@ const fillBigPicture = (data) => {
 //открываем большую фотку
 const openPic = (data) => {
   bigPic.classList.remove('hidden');
-  // commentLoaderElem.classList.add('hidden');
-  // commentCounter.classList.add('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 
   fillBigPicture(data);
-  renderComments(data.comments);
+  comments = data.comments;
+  renderComments();
 };
+
 
 //закрываем большую фотку
 const closePic = () => {
   document.body.classList.remove('modal-open');
   bigPic.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
+  commentsShown = 0;
+  loadMoreBtn.removeEventListener('click', onCommentsLoaderClick);
 };
 
 function onDocumentKeydown (evt) {
@@ -53,6 +76,15 @@ function onDocumentKeydown (evt) {
     evt.preventDefault();
     closePic();
   }
+}
+
+//загружаем ещё 5 комментов
+function onCommentsLoaderClick () {
+  renderComments();
+}
+
+if (loadMoreBtn) {
+  loadMoreBtn.addEventListener('click', onCommentsLoaderClick, false);
 }
 
 bigPicCloseBtn.addEventListener('click', closePic);
