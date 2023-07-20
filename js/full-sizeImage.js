@@ -63,10 +63,10 @@ const onCommentsLoaderClick = () => renderComments();
 
 const fillBigPicture = ({ url, avatar, likes, description }) => {
   modalOpenElement.querySelector('.big-picture__img img').src = url;
-  modalOpenElement.querySelector('.social__picture').src = avatar;
+  modalOpenElement.querySelector('.big-picture__img img').alt = avatar;
   modalOpenElement.querySelector('.likes-count').textContent = likes;
+  modalOpenElement.querySelector('.comments-count').textContent = comments.length;
   modalOpenElement.querySelector('.social__caption').textContent = description;
-  modalOpenElement.querySelector('.big-picture__img img').alt = description;
 };
 
 const openPic = (data) => {
