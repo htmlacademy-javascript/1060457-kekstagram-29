@@ -1,23 +1,24 @@
 const COMMENTS_PER_PORTION = 5;
 
-const bigPicCloseBtn = document.querySelector('.big-picture__cancel');
-const bigPic = document.querySelector('.big-picture');
-const bigPhotoPreview = document.querySelector('.big-picture__preview');
-const commentsBox = document.querySelector('.social__comments');
-const loadMoreBtn = document.querySelector('.comment__loader');
-const commentShown = document.querySelector('.social__comment-count');
-const commentTemplate = document.querySelector('.social__comment');
-const commentCounter = document.querySelector('.comment-count');
+const modalOpenElement = document.querySelector('.big-picture');
+const commentElement = modalOpenElement.querySelector('.comments');
+const commentCountElement = modalOpenElement.querySelector('.comments-count');
+const commentListElement = modalOpenElement.querySelector('.social__comments');
+const commentsLoaderElement = modalOpenElement.querySelector('.comments-loader');
+const bodyElement = document.querySelector('body');
+const cancelButtonElement = modalOpenElement.querySelector('.big-picture__cancel');
+const commentTemplate = document.querySelector('.big-picture__social').querySelector('.social__comment');
 
 let commentsShown = 0;
 let comments = [];
 
-const createComment = (data) => {
+
+const createComment = ({ avatar, name, message }) => {
   const comment = commentTemplate.cloneNode(true);
 
-  comment.querySelector('.social__picture').src = data.avatar;
-  comment.querySelector('.social__picture').alt = data.name;
-  comment.querySelector('.social__text').textContent = data.message;
+  comment.querySelector('.social__picture').src = avatar;
+  comment.querySelector('.social__picture').alt = name;
+  comment.querySelector('.social__text').textContent = message;
 
   return comment;
 };
@@ -25,70 +26,61 @@ const createComment = (data) => {
 const renderComments = () => {
   commentsShown += COMMENTS_PER_PORTION;
 
-  if (commentsShown <= comments.length) {
-    loadMoreBtn.classList.remove('hidden');
+  if (commentsShown >= comments.length) {
+    commentsLoaderElement.classList.add('hidden');
     commentsShown = comments.length;
+  } else {
+    commentsLoaderElement.classList.remove('hidden');
   }
-
   const fragment = document.createDocumentFragment();
   for (let i = 0; i < commentsShown; i++) {
     const comment = createComment(comments[i]);
     fragment.append(comment);
   }
-
-  commentsBox.innerHTML = '';
-  commentsBox.append(fragment);
-  commentShown.textContent = commentsShown;
-  commentCounter.textContent = comments.length;
+  commentListElement.innerHTML = '';
+  commentListElement.append(fragment);
+  commentElement.textContent = commentsShown;
+  commentCountElement.textContent = comments.length;
 };
 
-const fillBigPicture = (data) => {
-  bigPhotoPreview.querySelector('.big-picture__img img').src = data.url;
-  bigPhotoPreview.querySelector('.big-picture__img img').alt = data.description;
-  bigPhotoPreview.querySelector('.likes-count').textContent = data.likes;
-  bigPhotoPreview.querySelector('.comments-count').textContent = data.comments.length;
-  bigPhotoPreview.querySelector('.social__caption').textContent = data.description;
-};
-
-//открываем большую фотку
-const openPic = (data) => {
-  bigPic.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
-
-  fillBigPicture(data);
-  comments = data.comments;
-  renderComments();
-};
-
-
-//закрываем большую фотку
 const closePic = () => {
-  document.body.classList.remove('modal-open');
-  bigPic.classList.add('hidden');
+  modalOpenElement.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   commentsShown = 0;
-  loadMoreBtn.removeEventListener('click', onCommentsLoaderClick);
 };
 
-function onDocumentKeydown (evt) {
+function onDocumentKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     closePic();
   }
 }
 
-//загружаем ещё 5 комментов
-function onCommentsLoaderClick () {
-  renderComments();
-}
+const onCancelButtonClick = () => closePic();
 
-if (loadMoreBtn) {
-  loadMoreBtn.addEventListener('click', onCommentsLoaderClick, false);
-}
+const onCommentsLoaderClick = () => renderComments();
 
-bigPicCloseBtn.addEventListener('click', closePic);
+const fillBigPicture = ({ url, avatar, likes, description }) => {
+  modalOpenElement.querySelector('.big-picture__img img').src = url;
+  modalOpenElement.querySelector('.social__picture').src = avatar;
+  modalOpenElement.querySelector('.likes-count').textContent = likes;
+  modalOpenElement.querySelector('.social__caption').textContent = description;
+  modalOpenElement.querySelector('.big-picture__img img').alt = description;
+};
+
+const openPic = (data) => {
+  modalOpenElement.classList.remove('hidden');
+  bodyElement.classList.add('modal-open');
+  document.addEventListener('keydown', onDocumentKeydown);
+  fillBigPicture(data);
+  comments = data.comments;
+  if (comments.length > 0) {
+    renderComments();
+  }
+};
+
+cancelButtonElement.addEventListener('click', onCancelButtonClick);
+commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 
 export { openPic };
-
-// big-picture overlay с стоп пропагандой
