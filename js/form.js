@@ -1,5 +1,7 @@
 import { resetScale } from './scale.js';
-import { resetEffect, setEffectsSlider} from './effects.js';
+import { resetEffect, setEffectsSlider } from './effects.js';
+import { sendData } from './api.js';
+import { showSuccessPopup, showErrorPopup } from './popups.js';
 
 const MAX_HASHTAGS_COUNT = 5;
 
@@ -113,5 +115,25 @@ function onTextKeyUp() {
   }
 }
 
+const userFotoFormSubmit = () => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    if (pristine.validate()) {
+      onTextKeyUp();
+      sendData(new FormData(evt.target))
+        .then(() => {
+          closeModal();
+          showSuccessPopup();
+        })
+        .catch(() => {
+          showErrorPopup();
+        })
+        .finally(onTextKeyUp);
+    }
+  });
+};
+
 fileField.addEventListener('change', onOpenFileChange);
 canselBtn.addEventListener('click', onCancelBtnClick);
+
+export { userFotoFormSubmit, onDocumentKeydown };

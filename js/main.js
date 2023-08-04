@@ -1,10 +1,17 @@
 import './full-sizeImage.js';
 import './form.js';
-import {similarPhotos} from './data.js';
-
-const pictures = similarPhotos(25);
-
+import { userFotoFormSubmit } from './form.js';
+import { getData } from './api.js';
+import { showAlert } from './util.js';
 import {renderMiniPic} from './creatingMiniatures.js';
 
-renderMiniPic(pictures);
+getData()
+  .then((pictures) => {
+    renderMiniPic(pictures);
+  })
+  .catch(() => {
+    showAlert('Не удалось загрузить фотографии');
+  });
+
+userFotoFormSubmit();
 

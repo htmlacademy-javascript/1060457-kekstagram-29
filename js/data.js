@@ -58,4 +58,4 @@ const similarPhotos = (count) => {
   return arrayPhotos;
 };
 
-export {similarPhotos};
+// export {similarPhotos};
