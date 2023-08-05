@@ -1,10 +1,20 @@
 import './full-sizeImage.js';
-import './form.js';
-import {similarPhotos} from './data.js';
+import { sendFormSumbit } from './form.js';
+import { getData } from './api.js';
+import { showAlert } from './util.js';
+import { renderMiniPic } from './creating-miniatures.js';
+import { filterGallery } from './filters.js';
+import './add-new-pic.js';
 
-const pictures = similarPhotos(25);
 
-import {renderMiniPic} from './creatingMiniatures.js';
+getData()
+  .then((pictures) => {
+    renderMiniPic(pictures);
+    filterGallery(pictures);
+  })
+  .catch(() => {
+    showAlert('Не удалось загрузить фотографии');
+  });
 
-renderMiniPic(pictures);
+sendFormSumbit();
 
