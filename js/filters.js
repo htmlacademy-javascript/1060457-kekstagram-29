@@ -1,7 +1,7 @@
 import { renderMiniPic } from './creating-miniatures.js';
 import { debounce, removeElement, randomFilter, filterComments } from './util.js';
 
-const DELAY_TIME = 500;
+const DELAY_TIME = 550;
 const COUNT_RANDOM_PHOTOS = 10;
 
 const filtersSection = document.querySelector('.img-filters');
