@@ -38,5 +38,32 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {getRandomInteger, getRandomArrayElement, getOrigId, showAlert};
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+const randomArraySort = (data) => {
+  for (let i = 0; i < data.length - 1; i++) {
+    const randomIndex = getRandomInteger(0, data.length - 1);
+    const buffer = data[i];
+    data[i] = data[randomIndex];
+    data[randomIndex] = buffer;
+  }
+  return data;
+};
+
+const removeElement = (element) => {
+  element.remove();
+};
+
+const randomFilter = (data, count) => randomArraySort(data).slice(0, count);
+
+const filterComments = (data) => data.sort((a, b) => b.comments.length - a.comments.length);
+
+export { getRandomInteger, getRandomArrayElement, getOrigId, showAlert, debounce, randomArraySort, removeElement, randomFilter, filterComments };
 
