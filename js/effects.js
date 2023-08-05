@@ -1,51 +1,51 @@
 const EFFECTS = [
   {
-    name : 'none',
-    style : 'none',
-    min : 0 ,
-    max : 100 ,
-    step : 1,
-    unit : '',
+    name: 'none',
+    style: 'none',
+    min: 0,
+    max: 100,
+    step: 1,
+    unit: '',
   },
   {
-    name : 'chrome',
-    style : 'grayscale',
-    min : 0 ,
-    max : 1,
-    step : 0.1,
-    unit : '',
+    name: 'chrome',
+    style: 'grayscale',
+    min: 0,
+    max: 1,
+    step: 0.1,
+    unit: '',
   },
   {
-    name : 'sepia',
-    style : 'sepia',
-    min : 0,
-    max : 1,
-    step : 0.1,
-    unit : '',
+    name: 'sepia',
+    style: 'sepia',
+    min: 0,
+    max: 1,
+    step: 0.1,
+    unit: '',
   },
   {
-    name : 'marvin',
-    style : 'invert',
-    min : 0,
-    max : 100,
-    step : 1,
-    unit : '%',
+    name: 'marvin',
+    style: 'invert',
+    min: 0,
+    max: 100,
+    step: 1,
+    unit: '%',
   },
   {
-    name : 'phobos',
-    style : 'blur',
-    min : 0,
-    max : 3,
-    step : 0.1,
-    unit : 'px',
+    name: 'phobos',
+    style: 'blur',
+    min: 0,
+    max: 3,
+    step: 0.1,
+    unit: 'px',
   },
   {
-    name : 'heat',
-    style : 'brightness',
-    min : 1,
-    max : 3,
-    step : 0.1,
-    unit : '',
+    name: 'heat',
+    style: 'brightness',
+    min: 1,
+    max: 3,
+    step: 0.1,
+    unit: '',
   }
 ];
 
@@ -74,7 +74,7 @@ const updateSlider = () => {
     start: chosenEffect.max,
   });
 
-  if (isDefault()){
+  if (isDefault()) {
     hideSlider();
   } else {
     showSlider();
@@ -82,7 +82,7 @@ const updateSlider = () => {
 };
 
 const onEffectsChange = (evt) => {
-  if(!evt.target.classList.contains('effects__radio')) {
+  if (!evt.target.classList.contains('effects__radio')) {
     return;
   }
 
@@ -124,4 +124,4 @@ const setEffectsSlider = () => {
 
 };
 
-export {resetEffect, setEffectsSlider};
+export { resetEffect, setEffectsSlider };
