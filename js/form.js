@@ -1,7 +1,7 @@
 import { resetScale } from './scale.js';
 import { resetEffect, setEffectsSlider } from './effects.js';
 import { sendData } from './api.js';
-import { showSuccessPopup, showErrorPopup } from './popups.js';
+import { openSuccessPopup, showErrorPopup } from './popups.js';
 
 const MAX_HASHTAGS_COUNT = 5;
 
@@ -123,7 +123,7 @@ const userFotoFormSubmit = () => {
       sendData(new FormData(evt.target))
         .then(() => {
           closeModal();
-          showSuccessPopup();
+          openSuccessPopup();
         })
         .catch(() => {
           showErrorPopup();
