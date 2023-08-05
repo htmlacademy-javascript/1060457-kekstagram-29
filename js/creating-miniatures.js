@@ -10,7 +10,6 @@ const createPic = (pic) => {
   pictureElement.querySelector('.picture__img').alt = pic.description;
   pictureElement.querySelector('.picture__likes').textContent = pic.likes;
   pictureElement.querySelector('.picture__comments').textContent = pic.comments.length;
-  // pictureElement.dataset.id = pic.id;
 
   pictureElement.addEventListener('click', (evt) => {
     evt.preventDefault();

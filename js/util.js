@@ -4,15 +4,6 @@ const getRandomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const getOrigId = (min, max, cache = []) => () => {
-  let id = getRandomInteger(min, max);
-  while (cache.includes(id)) {
-    id = getRandomInteger(min, max);
-  }
-  cache.push(id);
-  return id;
-};
-
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 const ALERT_SHOW_TIME = 5000;
@@ -65,5 +56,5 @@ const randomFilter = (data, count) => randomArraySort(data).slice(0, count);
 
 const filterComments = (data) => data.sort((a, b) => b.comments.length - a.comments.length);
 
-export { getRandomInteger, getRandomArrayElement, getOrigId, showAlert, debounce, randomArraySort, removeElement, randomFilter, filterComments };
+export { getRandomInteger, getRandomArrayElement, showAlert, debounce, randomArraySort, removeElement, randomFilter, filterComments };
 

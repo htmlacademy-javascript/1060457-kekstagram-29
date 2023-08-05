@@ -5,11 +5,11 @@ const Route = {
   SEND_DATA: '/',
 };
 
-const ERROR_GET = 'Не удаётся загрузить данные. Проверьте подключение к сети !';
+const ERROR_GET = 'Ошибка загрузки данных';
 const ERROR_SEND = 'Возникла ошибка при отправке';
 
 const load = (route, errorText, method = 'GET', body = null) =>
-  fetch(`${SERVER}${route}`, {method, body})
+  fetch(`${SERVER}${route}`, { method, body })
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -20,7 +20,6 @@ const load = (route, errorText, method = 'GET', body = null) =>
       throw new Error(errorText);
     });
 
-const getData = () => load(Route.GET_DATA, ERROR_GET, 'GET');
-const sendData = (body) => load(Route.SEND_DATA, ERROR_SEND, 'POST', body);
+export const getData = () => load(Route.GET_DATA, ERROR_GET, 'GET');
+export const sendData = (body) => load(Route.SEND_DATA, ERROR_SEND, 'POST', body);
 
-export {getData, sendData};
