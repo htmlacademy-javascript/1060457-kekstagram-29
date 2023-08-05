@@ -1,9 +1,9 @@
 import './full-sizeImage.js';
 import './form.js';
-import { userFotoFormSubmit } from './form.js';
+import { sendFormSumbit } from './form.js';
 import { getData } from './api.js';
 import { showAlert } from './util.js';
-import {renderMiniPic} from './creatingMiniatures.js';
+import { renderMiniPic } from './creatingMiniatures.js';
 
 getData()
   .then((pictures) => {
@@ -13,5 +13,5 @@ getData()
     showAlert('Не удалось загрузить фотографии');
   });
 
-userFotoFormSubmit();
+sendFormSumbit();
 

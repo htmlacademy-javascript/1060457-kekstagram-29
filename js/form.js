@@ -115,7 +115,7 @@ function onTextKeyUp() {
   }
 }
 
-const userFotoFormSubmit = () => {
+const sendFormSumbit = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     if (pristine.validate()) {
@@ -136,4 +136,4 @@ const userFotoFormSubmit = () => {
 fileField.addEventListener('change', onOpenFileChange);
 canselBtn.addEventListener('click', onCancelBtnClick);
 
-export { userFotoFormSubmit, onDocumentKeydown };
+export { sendFormSumbit, onDocumentKeydown };
